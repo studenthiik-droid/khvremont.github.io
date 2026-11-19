@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tech Repair — Lyokha, Khabarovsk</title>
+<style>
+:root{
+  --bg:#0B0F19;--bg2:#121827;--bg3:#1A2235;
+  --cyan:#00F5D4;--gold:#FFB703;--cyan2:rgba(0,245,212,.12);--gold2:rgba(255,183,3,.15);
+  --text:#E8EBF0;--text2:#8A93A6;--text3:#555E70;
+  --font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','SF Mono',monospace;
+  --radius:12px;
+}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;
+  src:url(https://fonts.gstatic.com/s/inter/v20/UcCo3FwrK3iLTcviYwY.woff2) format('woff2')}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ── HEADER ── */
+.header{position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(11,15,25,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--bg3)}
+.header-inner{max-width:1100px;margin:0 auto;padding:0 24px;height:56px;
+  display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.logo span{color:var(--cyan)}
+.nav{display:flex;gap:24px;font-size:13px;color:var(--text2)}
+.nav a:hover{color:var(--cyan)}
+.menu-btn{display:none;background:none;border:1px solid var(--bg3);color:var(--text);
+  padding:6px 14px;border-radius:6px;cursor:pointer;font-size:14px}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:100px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(0,245,212,.06),transparent);pointer-events:none}
+.hero-content{max-width:640px;position:relative}
+.hero-img{margin:0 auto 32px;border-radius:var(--radius);border:1px solid var(--bg3);
+  overflow:hidden;background:var(--bg2)}
+.hero h1{font-size:clamp(28px,5vw,44px);font-weight:700;line-height:1.15;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+.hero h1 em.gold{color:var(--gold)}
+.hero p{color:var(--text2);font-size:16px;max-width:460px;margin:0 auto 32px}
+.btn{display:inline-block;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;
+  border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-cyan{background:var(--cyan);color:var(--bg);box-shadow:0 0 20px rgba(0,245,212,.25)}
+.btn-outline{border:1px solid var(--cyan);color:var(--cyan);background:transparent}
+
+/* ── SECTIONS ── */
+.section{max-width:1100px;margin:0 auto;padding:80px 24px}
+.section-title{font-size:clamp(22px,3.5vw,32px);font-weight:700;margin-bottom:8px}
+.section-title span{color:var(--cyan)}
+.section-sub{color:var(--text2);font-size:14px;margin-bottom:40px}
+.divider{width:40px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:40px}
+
+/* ── SERVICES ── */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.svc{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);
+  padding:28px;transition:border-color .25s,transform .2s;position:relative;overflow:hidden}
+.svc:hover{border-color:var(--cyan);transform:translateY(-4px)}
+.svc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--gold));opacity:0;transition:opacity .25s}
+.svc:hover::before{opacity:1}
+.svc-icon{font-size:28px;margin-bottom:14px}
+.svc h3{font-size:16px;font-weight:600;margin-bottom:8px}
+.svc p{font-size:13px;color:var(--text2);line-height:1.55}
+.svc-price{margin-top:12px;font-size:13px;color:var(--gold);font-weight:600}
+
+/* ── PORTFOLIO ── */
+.port-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.port-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);overflow:hidden}
+.port-svgs{display:flex;height:180px}
+.port-svgs svg{width:50%;display:block}
+.port-label{display:inline-block;padding:4px 10px;font-size:11px;font-weight:600;
+  border-radius:4px;margin:12px 16px 0;letter-spacing:1px;text-transform:uppercase}
+.port-label.before{background:rgba(255,80,80,.12);color:#FF5050}
+.port-label.after{background:var(--cyan2);color:var(--cyan)}
+.port-info{padding:12px 16px 20px}
+.port-info h4{font-size:14px;margin-bottom:4px}
+.port-info p{font-size:12px;color:var(--text2)}
+
+/* ── STEPS ── */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;position:relative}
+.step{text-align:center;padding:24px 16px}
+.step-num{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;font-size:18px;font-weight:700;font-family:var(--mono);
+  border:2px solid var(--cyan);color:var(--cyan);background:var(--cyan2)}
+.step h4{font-size:15px;font-weight:600;margin-bottom:6px}
+.step p{font-size:13px;color:var(--text2)}
+
+/* ── REVIEWS ── */
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.rev{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:24px}
+.rev-stars{color:var(--gold);font-size:14px;margin-bottom:10px;letter-spacing:2px}
+.rev p{font-size:13px;color:var(--text2);line-height:1.6;font-style:italic}
+.rev-author{margin-top:14px;font-size:13px;font-weight:600;color:var(--text)}
+
+/* ── FORM ── */
+.form-wrap{max-width:500px;margin:0 auto}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;padding:10px 14px;background:var(--bg2);border:1px solid var(--bg3);
+  border-radius:8px;color:var(--text);font-size:14px;font-family:var(--font);
+  transition:border-color .2s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+  outline:none;border-color:var(--cyan)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-group select option{background:var(--bg2)}
+.form-row{display:flex;gap:16px}
+.form-row .form-group{flex:1}
+.form-ok{display:none;padding:16px;text-align:center;color:var(--cyan);font-weight:600}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:40px 24px;border-top:1px solid var(--bg3);color:var(--text3);font-size:12px}
+
+/* ── MOBILE ── */
+@media(max-width:700px){
+  .nav{display:none;position:absolute;top:56px;left:0;right:0;background:var(--bg);
+    flex-direction:column;padding:16px 24px;gap:14px;border-bottom:1px solid var(--bg3)}
+  .nav.open{display:flex}
+  .menu-btn{display:block}
+  .form-row{flex-direction:column;gap:0}
+  .port-svgs{height:140px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo"><span>&#x269B;</span> Lyokha&nbsp;Repair</div>
+    <button class="menu-btn" onclick="document.querySelector('.nav').classList.toggle('open')">☰</button>
+    <nav class="nav">
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#steps">Process</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Request</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-img">
+      <img src="bean-ok.gif" alt="Repair — done" loading="eager">
+    </div>
+    <h1>Tech Repair in <em>Khabarovsk</em><br>by <em>Lyokha</em></h1>
+    <p>Diagnosis in 30 minutes. I fix smartphones, laptops, tablets, PCs, and TVs. Warranty on all work.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="#contact" class="btn btn-cyan">Submit a Request</a>
+      <a href="#portfolio" class="btn btn-outline">Portfolio</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="divider"></div>
+  <h2 class="section-title">What I <span>fix</span></h2>
+  <p class="section-sub">Main repair areas — exact prices after diagnosis</p>
+  <div class="services">
+    <div class="svc">
+      <div class="svc-icon">&#x1F4F1;</div>
+      <h3>Smartphone Repair</h3>
+      <p>Screen replacement, battery, charging port, water damage recovery. iPhone, Samsung, Xiaomi, Huawei.</p>
+      <div class="svc-price">from 500 ₽</div>
+    </div>
+    <div class="svc">
+      <div class="svc-icon">&#x1F4BB;</div>
+      <h3>Laptop Repair</h3>
+      <p>Dust cleaning, thermal paste replacement, motherboard repair, keyboard, screen.</p>
+      <div class="svc-price">from 800 ₽</div>
+    </div>
+    <div class="svc">
+      <div class="svc-icon">&#x1F4E6;</div>
+      <h3>Tablet Repair</h3>
+      <p>Touchscreen, display, battery, charging port replacement. iPad, Samsung Tab, Huawei.</p>
+      <div class="svc-price">from 600 ₽</div>
+    </div>
+    <div class="svc">
+      <div class="svc-icon">&#x1F5A5;</div>
+      <h3>PC Repair</h3>
+      <p>Building, upgrading, component replacement, OS installation, overheating fixes.</p>
+      <div class="svc-price">from 500 ₽</div>
+    </div>
+    <div class="svc">
+      <div class="svc-icon">&#x1F4FA;</div>
+      <h3>TV Repair</h3>
+      <p>Backlight, drivers, power supply, main board replacement. LED/OLED, LG, Samsung.</p>
+      <div class="svc-price">from 1,000 ₽</div>
+    </div>
+    <div class="svc">
+      <div class="svc-icon">&#x1F50C;</div>
+      <h3>Screen Replacement</h3>
+      <p>Fast display/touchscreen replacement on any device. Originals and compatible parts.</p>
+      <div class="svc-price">from 400 ₽</div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="section" id="portfolio">
+  <div class="divider"></div>
+  <h2 class="section-title">Before / <span>After</span></h2>
+  <p class="section-sub">Real cases — before and after repair</p>
+  <div class="port-grid">
+
+    <div class="port-card">
+      <div class="port-svgs">
+        <!-- Before: cracked screen -->
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="180" fill="#151b2b"/>
+          <rect x="100" y="20" width="100" height="140" rx="8" fill="#1e2640" stroke="#333" stroke-width="2"/>
+          <rect x="106" y="26" width="88" height="128" rx="4" fill="#253050"/>
+          <line x1="110" y1="30" x2="190" y2="140" stroke="#556" stroke-width="1.5" opacity=".7"/>
+          <line x1="190" y1="30" x2="110" y2="140" stroke="#556" stroke-width="1.5" opacity=".7"/>
+          <line x1="150" y1="26" x2="120" y2="154" stroke="#556" stroke-width="1" opacity=".4"/>
+          <line x1="150" y1="154" x2="130" y2="110" stroke="#556" stroke-width="1" opacity=".4"/>
+          <text x="150" y="175" text-anchor="middle" fill="#FF5050" font-size="9" font-family="system-ui">broken</text>
+        </svg>
+        <!-- After: intact -->
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="180" fill="#0d1420"/>
+          <rect x="100" y="20" width="100" height="140" rx="8" fill="#1e2640" stroke="#00F5D4" stroke-width="2"/>
+          <rect x="106" y="26" width="88" height="128" rx="4" fill="#1a4a45"/>
+          <rect x="120" y="40" width="60" height="10" rx="3" fill="#00F5D4" opacity=".3"/>
+          <rect x="120" y="56" width="45" height="8" rx="3" fill="#00F5D4" opacity=".2"/>
+          <rect x="120" y="70" width="55" height="8" rx="3" fill="#00F5D4" opacity=".15"/>
+          <circle cx="200" cy="155" r="14" fill="#00F5D422" stroke="#00F5D4" stroke-width="1.5"/>
+          <text x="200" y="159" text-anchor="middle" fill="#00F5D4" font-size="11" font-family="system-ui">&#x2713;</text>
+        </svg>
+      </div>
+      <span class="port-label before">Before</span>
+      <span class="port-label after">After</span>
+      <div class="port-info">
+        <h4>iPhone 13 — Screen Replacement</h4>
+        <p>Cracked screen, touch not working. Installed original in 1.5 hours.</p>
+      </div>
+    </div>
+
+    <div class="port-card">
+      <div class="port-svgs">
+        <!-- Before: overheating -->
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="180" fill="#151b2b"/>
+          <rect x="80" y="50" width="140" height="90" rx="4" fill="#1e2640" stroke="#333" stroke-width="1.5"/>
+          <rect x="90" y="60" width="120" height="30" rx="3" fill="#253050"/>
+          <rect x="90" y="100" width="50" height="30" rx="3" fill="#3a2020"/>
+          <path d="M115 100 Q115 90 120 90 Q125 90 125 100" stroke="#FF5050" stroke-width="1.5" fill="none"/>
+          <path d="M115 95 Q118 85 120 95" stroke="#FF5050" stroke-width="1" fill="none" opacity=".6"/>
+          <path d="M125 100 Q125 88 130 88 Q135 88 135 100" stroke="#FF5050" stroke-width="1.5" fill="none"/>
+          <text x="150" y="165" text-anchor="middle" fill="#FF5050" font-size="9" font-family="system-ui">overheating</text>
+        </svg>
+        <!-- After: clean -->
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="180" fill="#0d1420"/>
+          <rect x="80" y="50" width="140" height="90" rx="4" fill="#1e2640" stroke="#00F5D4" stroke-width="1.5"/>
+          <rect x="90" y="60" width="120" height="30" rx="3" fill="#1a4a45"/>
+          <rect x="90" y="100" width="50" height="30" rx="3" fill="#1a4a45"/>
+          <circle cx="200" cy="155" r="14" fill="#00F5D422" stroke="#00F5D4" stroke-width="1.5"/>
+          <text x="200" y="159" text-anchor="middle" fill="#00F5D4" font-size="11" font-family="system-ui">&#x2713;</text>
+          <line x1="160" y1="70" x2="190" y2="70" stroke="#00F5D4" stroke-width="2" opacity=".3"/>
+          <line x1="160" y1="76" x2="180" y2="76" stroke="#00F5D4" stroke-width="1.5" opacity=".2"/>
+        </svg>
+      </div>
+      <span class="port-label before">Before</span>
+      <span class="port-label after">After</span>
+      <div class="port-info">
+        <h4>ASUS VivoBook — Cleaning + Thermal Paste</h4>
+        <p>Shutting down under load. Cleaned cooling system, replaced paste with MX-4.</p>
+      </div>
+    </div>
+
+    <div class="port-card">
+      <div class="port-svgs">
+        <!-- Before: dead TV -->
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="180" fill="#151b2b"/>
+          <rect x="60" y="35" width="180" height="100" rx="4" fill="#1e2640" stroke="#333" stroke-width="2"/>
+          <rect x="66" y="41" width="168" height="88" rx="2" fill="#0d0d0d"/>
+          <circle cx="150" cy="85" r="16" fill="none" stroke="#555" stroke-width="1.5"/>
+          <line x1="145" y1="80" x2="142" y2="87" stroke="#555" stroke-width="1.5"/>
+          <line x1="145" y1="80" x2="155" y2="87" stroke="#555" stroke-width="1.5"/>
+          <line x1="155" y1="80" x2="158" y2="87" stroke="#555" stroke-width="1.5"/>
+          <text x="150" y="165" text-anchor="middle" fill="#FF5050" font-size="9" font-family="system-ui">won't turn on</text>
+        </svg>
+        <!-- After: working -->
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="180" fill="#0d1420"/>
+          <rect x="60" y="35" width="180" height="100" rx="4" fill="#1e2640" stroke="#00F5D4" stroke-width="2"/>
+          <rect x="66" y="41" width="168" height="88" rx="2" fill="#0d2a25"/>
+          <rect x="80" y="55" width="140" height="10" rx="3" fill="#00F5D4" opacity=".25"/>
+          <rect x="80" y="72" width="100" height="8" rx="3" fill="#00F5D4" opacity=".15"/>
+          <rect x="80" y="86" width="120" height="8" rx="3" fill="#00F5D4" opacity=".12"/>
+          <circle cx="200" cy="155" r="14" fill="#00F5D422" stroke="#00F5D4" stroke-width="1.5"/>
+          <text x="200" y="159" text-anchor="middle" fill="#00F5D4" font-size="11" font-family="system-ui">&#x2713;</text>
+        </svg>
+      </div>
+      <span class="port-label before">Before</span>
+      <span class="port-label after">After</span>
+      <div class="port-info">
+        <h4>Samsung UE55 — Backlight Replacement</h4>
+        <p>Dark bands on screen. Replaced LED strips, calibrated brightness.</p>
+      </div>
+    </div>
+
+    <div class="port-card">
+      <div class="port-svgs">
+        <!-- Before: broken tablet -->
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="180" fill="#151b2b"/>
+          <rect x="120" y="20" width="60" height="130" rx="6" fill="#1e2640" stroke="#333" stroke-width="2"/>
+          <rect x="124" y="30" width="52" height="110" rx="3" fill="#253050"/>
+          <line x1="140" y1="30" x2="140" y2="140" stroke="#FF5050" stroke-width="2" opacity=".7"/>
+          <text x="150" y="175" text-anchor="middle" fill="#FF5050" font-size="9" font-family="system-ui">cracked</text>
+        </svg>
+        <!-- After: intact -->
+        <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="180" fill="#0d1420"/>
+          <rect x="120" y="20" width="60" height="130" rx="6" fill="#1e2640" stroke="#00F5D4" stroke-width="2"/>
+          <rect x="124" y="30" width="52" height="110" rx="3" fill="#1a4a45"/>
+          <circle cx="200" cy="155" r="14" fill="#00F5D422" stroke="#00F5D4" stroke-width="1.5"/>
+          <text x="200" y="159" text-anchor="middle" fill="#00F5D4" font-size="11" font-family="system-ui">&#x2713;</text>
+        </svg>
+      </div>
+      <span class="port-label before">Before</span>
+      <span class="port-label after">After</span>
+      <div class="port-info">
+        <h4>iPad Air 4 — Glass Replacement</h4>
+        <p>Deep crack across the diagonal. Replaced sensor + glass. Done in half a day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="section" id="steps">
+  <div class="divider"></div>
+  <h2 class="section-title">How I <span>work</span></h2>
+  <p class="section-sub">Four simple steps from request to a working device</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h4>Request</h4>
+      <p>Describe the problem below or message me on any messenger</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h4>Diagnosis</h4>
+      <p>Free diagnosis in 30 minutes with exact pricing</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h4>Repair</h4>
+      <p>Most repairs done same day — from 30 minutes to 1 day</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h4>Warranty</h4>
+      <p>3–12 months warranty on parts and labor</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section" id="reviews">
+  <div class="divider"></div>
+  <h2 class="section-title">What <span>clients say</span></h2>
+  <p class="section-sub">Real reviews from real people</p>
+  <div class="reviews">
+    <div class="rev">
+      <div class="rev-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+      <p>Brought a MacBook that kept overheating — thought I needed a new one. Lyokha cleaned it, replaced the paste, works like new. Fair price, explained everything.</p>
+      <div class="rev-author">Andrey, Central District</div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+      <p>Shattered my iPhone screen — thought I'd need a new phone. Replaced in an hour, like nothing happened. Highly recommend!</p>
+      <div class="rev-author">Marina, Solnechny</div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+      <p>TV wouldn't turn on. Other technicians wanted 8,000 rubles for a new power supply. Lyokha fixed it for 3,000 with a warranty. Thanks!</p>
+      <div class="rev-author">Dmitry, 50 Let Oktyabrya</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="section" id="contact">
+  <div class="divider"></div>
+  <h2 class="section-title">Submit a <span>Request</span></h2>
+  <p class="section-sub">Describe the problem — I'll reply within 30 minutes</p>
+  <div class="form-wrap">
+    <form id="repairForm" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="device">Device Type</label>
+        <select id="device" required>
+          <option value="" disabled selected>Choose a device</option>
+          <option>Smartphone</option>
+          <option>Laptop</option>
+          <option>Tablet</option>
+          <option>PC</option>
+          <option>TV</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="problem">Problem Description</label>
+        <textarea id="problem" placeholder="What happened to your device?" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-cyan" style="width:100%">Send Request</button>
+    </form>
+    <div class="form-ok" id="formOk">&#x2713; Request sent! Lyokha will contact you.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>&copy; 2025 Lyokha Repair — tech repair in Khabarovsk</p>
+  <p style="margin-top:4px">10% prepayment, up to 12 months warranty.</p>
+</footer>
+
+<script>
+function handleSubmit(e){
+  e.preventDefault();
+  e.target.style.display='none';
+  document.getElementById('formOk').style.display='block';
+}
+</script>
+</body>
+</html>
